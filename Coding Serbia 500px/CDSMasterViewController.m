@@ -7,8 +7,9 @@
 //
 
 #import "CDSMasterViewController.h"
-
 #import "CDSDetailViewController.h"
+
+#define FOLDER_NAME @"LocalPics"
 
 @interface CDSMasterViewController () {
     NSMutableArray *_objects;
@@ -17,33 +18,43 @@
 
 @implementation CDSMasterViewController
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-}
+#pragma mark - View Lifecycle
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
 }
 
-- (void)didReceiveMemoryWarning
+- (void) viewDidAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if ([_objects count] == 0)
+    {
+        [self loadImages];
+    }
 }
 
-- (void)insertNewObject:(id)sender
+#pragma mark - Data management
+
+- (void) loadImages
+{
+    NSArray* filenames = [[NSBundle mainBundle] pathsForResourcesOfType:@"jpg" inDirectory:FOLDER_NAME];
+   
+    for (NSString* filename in filenames)
+    {
+        UIImage* bigImage = [UIImage imageWithContentsOfFile:filename];
+        [self insertNewImage:bigImage];
+    }
+}
+
+- (void)insertNewImage:(UIImage*)image
 {
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
     }
-    [_objects insertObject:[NSDate date] atIndex:0];
+    [_objects insertObject:image atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -64,8 +75,8 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    UIImage *image = _objects[indexPath.row];
+    cell.imageView.image = image;
     return cell;
 }
 
@@ -84,22 +95,6 @@
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

@@ -9,10 +9,18 @@
 #import "CDSDetailViewController.h"
 
 @interface CDSDetailViewController ()
-- (void)configureView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @end
 
 @implementation CDSDetailViewController
+
+#pragma mark - View Lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self configureView];
+}
 
 #pragma mark - Managing the detail item
 
@@ -31,21 +39,9 @@
     // Update the user interface for the detail item.
 
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+        self.imageView.image = self.detailItem;
     }
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end
