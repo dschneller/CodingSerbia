@@ -22,6 +22,7 @@
 		41C06B7C1809AB92001F2173 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C06B5B1809AB92001F2173 /* UIKit.framework */; };
 		41C06B841809AB92001F2173 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41C06B821809AB92001F2173 /* InfoPlist.strings */; };
 		41C06B861809AB92001F2173 /* Coding_Serbia_500pxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C06B851809AB92001F2173 /* Coding_Serbia_500pxTests.m */; };
+		41C06BDF1809AFC3001F2173 /* LocalPics in Resources */ = {isa = PBXBuildFile; fileRef = 41C06BDE1809AFC3001F2173 /* LocalPics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		41C06B811809AB92001F2173 /* Coding Serbia 500pxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Coding Serbia 500pxTests-Info.plist"; sourceTree = "<group>"; };
 		41C06B831809AB92001F2173 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		41C06B851809AB92001F2173 /* Coding_Serbia_500pxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Coding_Serbia_500pxTests.m; sourceTree = "<group>"; };
+		41C06BDE1809AFC3001F2173 /* LocalPics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LocalPics; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				41C06B701809AB92001F2173 /* CDSDetailViewController.m */,
 				41C06B721809AB92001F2173 /* Images.xcassets */,
 				41C06B5E1809AB92001F2173 /* Supporting Files */,
+				41C06BDE1809AFC3001F2173 /* LocalPics */,
 			);
 			path = "Coding Serbia 500px";
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				41C06B731809AB92001F2173 /* Images.xcassets in Resources */,
 				41C06B621809AB92001F2173 /* InfoPlist.strings in Resources */,
 				41C06B6B1809AB92001F2173 /* Main.storyboard in Resources */,
+				41C06BDF1809AFC3001F2173 /* LocalPics in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
