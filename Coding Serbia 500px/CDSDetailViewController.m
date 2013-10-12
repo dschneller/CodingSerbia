@@ -7,10 +7,14 @@
 //
 
 #import "CDSDetailViewController.h"
+#import "CDSPictureModel.h"
 
 @interface CDSDetailViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+
 @end
+
 
 @implementation CDSDetailViewController
 
@@ -39,9 +43,11 @@
     // Update the user interface for the detail item.
 
     if (self.detailItem) {
-        self.imageView.image = self.detailItem;
+        CDSPictureModel* pictureModel = self.detailItem;
+        
+        self.navigationItem.title = [pictureModel.filepath lastPathComponent];
+        self.imageView.image = pictureModel.image;
     }
 }
-
 
 @end

@@ -23,6 +23,8 @@
 		41C06B841809AB92001F2173 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41C06B821809AB92001F2173 /* InfoPlist.strings */; };
 		41C06B861809AB92001F2173 /* Coding_Serbia_500pxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C06B851809AB92001F2173 /* Coding_Serbia_500pxTests.m */; };
 		41C06BDF1809AFC3001F2173 /* LocalPics in Resources */ = {isa = PBXBuildFile; fileRef = 41C06BDE1809AFC3001F2173 /* LocalPics */; };
+		41C06BE51809F4F2001F2173 /* CDSPictureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C06BE41809F4F2001F2173 /* CDSPictureModel.m */; };
+		41C06BE8180A0313001F2173 /* UITableViewCell+CDSPictureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C06BE7180A0313001F2173 /* UITableViewCell+CDSPictureModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,10 @@
 		41C06B831809AB92001F2173 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		41C06B851809AB92001F2173 /* Coding_Serbia_500pxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Coding_Serbia_500pxTests.m; sourceTree = "<group>"; };
 		41C06BDE1809AFC3001F2173 /* LocalPics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LocalPics; sourceTree = "<group>"; };
+		41C06BE31809F4F2001F2173 /* CDSPictureModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDSPictureModel.h; sourceTree = "<group>"; };
+		41C06BE41809F4F2001F2173 /* CDSPictureModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDSPictureModel.m; sourceTree = "<group>"; };
+		41C06BE6180A0313001F2173 /* UITableViewCell+CDSPictureModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+CDSPictureModel.h"; sourceTree = "<group>"; };
+		41C06BE7180A0313001F2173 /* UITableViewCell+CDSPictureModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+CDSPictureModel.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +130,10 @@
 				41C06B6D1809AB92001F2173 /* CDSMasterViewController.m */,
 				41C06B6F1809AB92001F2173 /* CDSDetailViewController.h */,
 				41C06B701809AB92001F2173 /* CDSDetailViewController.m */,
+				41C06BE31809F4F2001F2173 /* CDSPictureModel.h */,
+				41C06BE41809F4F2001F2173 /* CDSPictureModel.m */,
+				41C06BE6180A0313001F2173 /* UITableViewCell+CDSPictureModel.h */,
+				41C06BE7180A0313001F2173 /* UITableViewCell+CDSPictureModel.m */,
 				41C06B721809AB92001F2173 /* Images.xcassets */,
 				41C06B5E1809AB92001F2173 /* Supporting Files */,
 				41C06BDE1809AFC3001F2173 /* LocalPics */,
@@ -260,8 +270,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				41C06B711809AB92001F2173 /* CDSDetailViewController.m in Sources */,
+				41C06BE8180A0313001F2173 /* UITableViewCell+CDSPictureModel.m in Sources */,
 				41C06B641809AB92001F2173 /* main.m in Sources */,
 				41C06B6E1809AB92001F2173 /* CDSMasterViewController.m in Sources */,
+				41C06BE51809F4F2001F2173 /* CDSPictureModel.m in Sources */,
 				41C06B681809AB92001F2173 /* CDSAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
