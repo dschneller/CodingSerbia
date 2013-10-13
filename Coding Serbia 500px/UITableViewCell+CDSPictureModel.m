@@ -7,6 +7,7 @@
 //
 
 #import "UITableViewCell+CDSPictureModel.h"
+#import "NSNumber+CDSHumanReadable.h"
 #import "CDSPictureModel.h"
 
 @implementation UITableViewCell (CDSPictureModel)
@@ -14,7 +15,7 @@
 -(void)configureWithPictureModel:(CDSPictureModel *)pictureModel
 {
     self.textLabel.text = [pictureModel.filepath lastPathComponent];
-    self.detailTextLabel.text = [pictureModel.filesize description];
+    self.detailTextLabel.text = [pictureModel.filesize humanReadableFilesize];
     self.imageView.image = pictureModel.thumbnail;
 }
 
