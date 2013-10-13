@@ -8,7 +8,7 @@
 
 #import "CDSPictureModel.h"
 
-#define CACHE_SIZE_MB 5
+#define CACHE_SIZE_MB 1
 
 @implementation CDSPictureModel
 {
@@ -41,35 +41,65 @@
     return self;
 }
 
--(UIImage *)thumbnail
+- (void)prepareThumbnail
 {
     if (!_thumbnail)
     {
         UIImage* image = self.image;
-        CGSize thumbnailSize = CGSizeMake(43, 43);
-        UIGraphicsBeginImageContextWithOptions(thumbnailSize, NO, 0.0);
-        [image drawInRect:CGRectMake(0, 0, thumbnailSize.width, thumbnailSize.height)];
-        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        _thumbnail = newImage;
+        [self prepareThumbnailFor:image];
     }
+}
+
+- (void)prepareThumbnailFor:(UIImage*)image
+{
+    if (!image) return;
+    [NSThread sleepForTimeInterval:1.0];
+    CGSize thumbnailSize = CGSizeMake(43, 43);
+    UIGraphicsBeginImageContextWithOptions(thumbnailSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, thumbnailSize.width, thumbnailSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    _thumbnail = newImage;
+    
+    __weak CDSPictureModel* weakModel = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CDSPictureModel* strongSelf = weakModel;
+        if (!strongSelf) return;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ThumbnailDidUpdateNotification" object:strongSelf userInfo:nil];
+    });
+
+}
+
+-(UIImage *)thumbnail
+{
+    [self prepareThumbnail];
     return _thumbnail;
 }
 
 -(UIImage*)image
 {
-    UIImage* image = [[CDSPictureModel imageCache] objectForKey:self.filepath];
+    __block UIImage* image = [[CDSPictureModel imageCache] objectForKey:self.filepath];
     if (image)
     {
         return image;
     }
-    
-    image = [UIImage imageWithContentsOfFile:self.filepath];
-    [[CDSPictureModel imageCache] setObject:image
-                                     forKey:self.filepath
-                                       cost:[self.filesize unsignedIntegerValue]];
-    
-    return image;
+    else
+    {
+        __weak CDSPictureModel* weakModel = self;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            CDSPictureModel* strongSelf = weakModel;
+            if (!strongSelf) return;
+            image = [UIImage imageWithContentsOfFile:strongSelf.filepath];
+            [[CDSPictureModel imageCache] setObject:image
+                                             forKey:strongSelf.filepath
+                                               cost:[strongSelf.filesize unsignedIntegerValue]];
+            [self prepareThumbnailFor:image];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ImageRetrieved" object:strongSelf userInfo:@{@"img" : image}];
+            });
+        });
+        return nil;
+    }
 }
 
 -(NSNumber*)filesize

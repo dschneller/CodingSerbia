@@ -16,5 +16,6 @@
 @property (nonatomic, readonly) UIImage* image;
 
 - (id)initWithPath:(NSString*)path;
+- (void)prepareThumbnail;
 
 @end

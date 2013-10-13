@@ -12,7 +12,7 @@
 #import "UITableViewCell+CDSPictureModel.h"
 
 #define FOLDER_NAME @"LocalPics"
-#define IMAGE_DELAY 0.75
+#define IMAGE_DELAY 0.5
 
 @interface CDSMasterViewController () {
     NSMutableArray *_objects;
@@ -26,7 +26,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    
+
     // set left button to system provided edit button
     // that takes care of the table's edit status automatically
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -35,10 +35,14 @@
 
 }
 
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Data management
@@ -48,7 +52,7 @@
     // because image loading can potentially take a long time,
     // do not block the UI thread with it. Instead, dispatch that
     // task to an asynchronous working queue and continue immediately
-    
+
     __weak CDSMasterViewController* weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray* filenames = [[NSBundle mainBundle] pathsForResourcesOfType:@"jpg"
@@ -57,14 +61,13 @@
         {
                 [NSThread sleepForTimeInterval:IMAGE_DELAY];
                 CDSPictureModel* model = [[CDSPictureModel alloc] initWithPath:filename];
-                
                 // once the model is created, update the UI. Because UI must not be
                 // touched from a background queue, fire that as a task on the main
                 // queue
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf insertNewImage:model];
                 });
-              
+
         }
     });
 }
@@ -75,13 +78,30 @@
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
     }
-    [_objects insertObject:pictureModel atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    u_int32_t randomIndex = arc4random_uniform((u_int32_t)[_objects count]);
+
+    [_objects insertObject:pictureModel atIndex:randomIndex];
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:randomIndex inSection:0];
+    // as UITableViewRowAnimatioNone seems to have been broken since forever,
+    // we can only disable the animations wholesale while adding a row
+    [UIView setAnimationsEnabled:NO];
     [self.tableView insertRowsAtIndexPaths:@[indexPath]
-                          withRowAnimation:UITableViewRowAnimationAutomatic];
+                          withRowAnimation:UITableViewRowAnimationNone];
+    [UIView setAnimationsEnabled:YES];
 }
 
 #pragma mark - Table View
+
+- (IBAction)refresh:(id)sender {
+    UIRefreshControl* r = sender;
+    _objects = nil;
+    [self loadImages];
+    [self.tableView reloadData];
+    [r endRefreshing];
+
+
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -99,7 +119,20 @@
                                                               forIndexPath:indexPath];
     CDSPictureModel *pictureModel = _objects[indexPath.row];
     [cell configureWithPictureModel:pictureModel];
+    if (!pictureModel.thumbnail)
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(thumbnailDidUpdate:) name:@"ThumbnailDidUpdateNotification" object:pictureModel];
+    }
+
     return cell;
+}
+
+- (void) thumbnailDidUpdate:(NSNotification*)notification
+{
+    CDSPictureModel* model = notification.object;
+    NSUInteger index = [_objects indexOfObject:model];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ThumbnailDidUpdateNotification" object:model];
 }
 
 #pragma mark - Table View Editing

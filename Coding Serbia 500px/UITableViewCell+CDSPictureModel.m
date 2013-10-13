@@ -16,7 +16,12 @@
 {
     self.textLabel.text = [pictureModel.filepath lastPathComponent];
     self.detailTextLabel.text = [pictureModel.filesize humanReadableFilesize];
-    self.imageView.image = pictureModel.thumbnail;
+    UIImage* thumbnail = pictureModel.thumbnail;
+    if (!thumbnail)
+    {
+        thumbnail = [UIImage imageNamed:@"Dots"];
+    }
+    self.imageView.image = thumbnail;
 }
 
 @end

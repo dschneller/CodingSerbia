@@ -33,6 +33,11 @@
     [self initZoom];
 }
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Managing the detail item
 
 - (void)setDetailItem:(id)newDetailItem
@@ -43,6 +48,15 @@
         [self configureView];
         [self initZoom];
     }
+}
+
+- (void)imageRetrieved:(NSNotification*)notification
+{
+    UIImage* image = [notification userInfo][@"img"];
+    [self resetZoomScale];
+    self.imageView.image = image;
+    [self initZoom];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ImageRetrieved" object:notification.object];
 }
 
 #pragma mark -  Tap Gestures
@@ -61,13 +75,24 @@
 - (void)configureView
 {
     if (self.detailItem) {
-        CDSPictureModel* pictureModel = self.detailItem;
-        UIImage* image = pictureModel.image;
+
         
+        CDSPictureModel* pictureModel = self.detailItem;
         self.navigationItem.title = [pictureModel.filepath lastPathComponent];
         [self resetZoomScale];
-        self.imageView.image = image;
-        [self initZoom];
+        
+        UIImage* image = pictureModel.image;
+        if (!image)
+        {
+            self.imageView.image = [UIImage imageNamed:@"Dots"];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageRetrieved:) name:@"ImageRetrieved" object:pictureModel];
+            
+        }
+        else
+        {
+            self.imageView.image = image;
+            [self initZoom];
+        }
     }
 }
 
