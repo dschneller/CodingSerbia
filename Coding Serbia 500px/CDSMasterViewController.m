@@ -131,7 +131,7 @@
 {
     CDSPictureModel* model = notification.object;
     NSUInteger index = [_objects indexOfObject:model];
-    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ThumbnailDidUpdateNotification" object:model];
 }
 

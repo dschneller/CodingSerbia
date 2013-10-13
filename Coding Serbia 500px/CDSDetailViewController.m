@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -54,9 +55,18 @@
 {
     UIImage* image = [notification userInfo][@"img"];
     [self resetZoomScale];
-    self.imageView.image = image;
+    [self setImage:image];
     [self initZoom];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ImageRetrieved" object:notification.object];
+}
+
+- (void) setImage:(UIImage*)image
+{
+    self.imageView.image = image;
+    if (image)
+    {
+        [self.activityIndicator stopAnimating];
+    }
 }
 
 #pragma mark -  Tap Gestures
@@ -75,10 +85,8 @@
 - (void)configureView
 {
     if (self.detailItem) {
-
-        
         CDSPictureModel* pictureModel = self.detailItem;
-        self.navigationItem.title = [pictureModel.filepath lastPathComponent];
+        self.navigationItem.title = [[pictureModel.filepath lastPathComponent] stringByDeletingPathExtension];
         [self resetZoomScale];
         
         UIImage* image = pictureModel.image;
@@ -90,7 +98,7 @@
         }
         else
         {
-            self.imageView.image = image;
+            [self setImage:image];
             [self initZoom];
         }
     }

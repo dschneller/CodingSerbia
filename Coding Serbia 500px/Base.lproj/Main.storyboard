@@ -9,7 +9,13 @@
             <objects>
                 <navigationController id="rS3-R9-Ivy" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
+                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.88146293163299561" green="0.90512663125991821" blue="0.95495408773422241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.42352941179999998" green="0.43529411759999997" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="16"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="pGg-6v-bdr" kind="relationship" relationship="rootViewController" id="RxB-wf-QIq"/>
@@ -26,7 +32,8 @@
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="mLL-gJ-YKr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.88146293163299561" green="0.90512663125991821" blue="0.95495408773422241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.42352941179999998" green="0.43529411759999997" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SubtitleCell" textLabel="TPg-dE-IwB" detailTextLabel="Gha-7p-3Ye" style="IBUITableViewCellStyleSubtitle" id="xdy-ul-2vv">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
@@ -36,22 +43,22 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TPg-dE-IwB">
-                                            <rect key="frame" x="15" y="3" width="34" height="22"/>
+                                            <rect key="frame" x="15" y="5" width="28" height="19"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gha-7p-3Ye">
-                                            <rect key="frame" x="15" y="25" width="43" height="15"/>
+                                            <rect key="frame" x="15" y="24" width="43" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.88146293163299561" green="0.90512663125991821" blue="0.95495408773422241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <segue destination="Ah7-4n-0Wa" kind="push" identifier="showDetail" id="9V2-mg-BeX"/>
                                 </connections>
@@ -107,11 +114,18 @@
                                     <outlet property="delegate" destination="Ah7-4n-0Wa" id="kdO-jE-WdU"/>
                                 </connections>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cou-qL-2UY">
+                                <rect key="frame" x="142" y="366" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.88146293163299561" green="0.90512663125991821" blue="0.95495408773422241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.42352941179999998" green="0.43529411759999997" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Y9D-pz-X3w" firstAttribute="bottom" secondItem="1FJ-y5-EzE" secondAttribute="bottom" id="BhF-yb-Re7"/>
+                            <constraint firstAttribute="centerX" secondItem="cou-qL-2UY" secondAttribute="centerX" id="Dkn-x0-5Rf"/>
                             <constraint firstItem="Y9D-pz-X3w" firstAttribute="leading" secondItem="1FJ-y5-EzE" secondAttribute="leading" id="JU5-8j-3qR"/>
+                            <constraint firstAttribute="centerY" secondItem="cou-qL-2UY" secondAttribute="centerY" constant="-100" id="L9g-Ma-J9C"/>
                             <constraint firstItem="Y9D-pz-X3w" firstAttribute="top" secondItem="1FJ-y5-EzE" secondAttribute="top" id="lrD-ux-yVf"/>
                             <constraint firstItem="Y9D-pz-X3w" firstAttribute="trailing" secondItem="1FJ-y5-EzE" secondAttribute="trailing" id="y4s-Ll-e27"/>
                         </constraints>
@@ -121,6 +135,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Photo Viewer" id="cra-N8-TIN"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="cou-qL-2UY" id="vmh-pk-eul"/>
                         <outlet property="imageView" destination="2gr-IB-3uw" id="R6b-MB-uvi"/>
                         <outlet property="scrollView" destination="Y9D-pz-X3w" id="KGl-XZ-jyG"/>
                     </connections>
