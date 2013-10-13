@@ -12,11 +12,11 @@
 #import "UITableViewCell+CDSPictureModel.h"
 
 #define FOLDER_NAME @"LocalPics"
-#define IMAGE_DELAY 0.5
 
 @interface CDSMasterViewController () {
     NSMutableArray *_objects;
 }
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinningActivityIndicator;
 @end
 
 @implementation CDSMasterViewController
@@ -59,7 +59,6 @@
                                                                 inDirectory:FOLDER_NAME];
         for (NSString* filename in filenames)
         {
-                [NSThread sleepForTimeInterval:IMAGE_DELAY];
                 CDSPictureModel* model = [[CDSPictureModel alloc] initWithPath:filename];
                 // once the model is created, update the UI. Because UI must not be
                 // touched from a background queue, fire that as a task on the main
@@ -89,6 +88,7 @@
     [self.tableView insertRowsAtIndexPaths:@[indexPath]
                           withRowAnimation:UITableViewRowAnimationNone];
     [UIView setAnimationsEnabled:YES];
+    [self.spinningActivityIndicator stopAnimating];
 }
 
 #pragma mark - Table View
