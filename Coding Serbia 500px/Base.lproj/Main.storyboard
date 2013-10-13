@@ -72,20 +72,20 @@
         <!--Detail View Controller - Detail-->
         <scene sceneID="Cn3-H9-jdl">
             <objects>
-                <viewController title="Detail" id="Ah7-4n-0Wa" customClass="CDSDetailViewController" sceneMemberID="viewController">
+                <viewController title="Detail" automaticallyAdjustsScrollViewInsets="NO" id="Ah7-4n-0Wa" customClass="CDSDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vbv-aa-LN8"/>
                         <viewControllerLayoutGuide type="bottom" id="3uq-I3-fI7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1FJ-y5-EzE">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" minimumZoomScale="0.20000000298023224" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="Y9D-pz-X3w" userLabel="SCROLL">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2gr-IB-3uw" userLabel="IMG">
-                                        <rect key="frame" x="160" y="252" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="160" y="284" width="0.0" height="0.0"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -109,8 +109,10 @@
                             <constraint firstItem="Y9D-pz-X3w" firstAttribute="top" secondItem="1FJ-y5-EzE" secondAttribute="top" id="lrD-ux-yVf"/>
                             <constraint firstItem="Y9D-pz-X3w" firstAttribute="trailing" secondItem="1FJ-y5-EzE" secondAttribute="trailing" id="y4s-Ll-e27"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="2aL-pe-WKz" appends="YES" id="gf7-7d-krj"/>
+                        </connections>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Photo Viewer" id="cra-N8-TIN"/>
                     <connections>
                         <outlet property="imageView" destination="2gr-IB-3uw" id="R6b-MB-uvi"/>
@@ -118,6 +120,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="2aL-pe-WKz">
+                    <connections>
+                        <action selector="tapped:" destination="Ah7-4n-0Wa" id="bgk-H0-Etc"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="902" y="64"/>
         </scene>

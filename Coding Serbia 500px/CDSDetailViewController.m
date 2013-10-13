@@ -45,7 +45,18 @@
     }
 }
 
-#pragma Panning and Zooming
+#pragma mark -  Tap Gestures
+
+- (IBAction)tapped:(id)sender {
+    BOOL hidden =self.navigationController.navigationBar.alpha < 0.5;
+    __weak CDSDetailViewController* weakSelf = self;
+    [UIView animateWithDuration:0.25f animations:^{
+        weakSelf.navigationController.navigationBar.alpha = hidden ? 1.0 : 0.0;
+    }];
+}
+
+
+#pragma mark - Panning and Zooming
 
 - (void)configureView
 {
