@@ -49,7 +49,7 @@
 
 - (void) loadImages
 {
-    // because image loading can potentially take a long time,
+    // because file system operations can potentially take a long time,
     // do not block the UI thread with it. Instead, dispatch that
     // task to an asynchronous working queue and continue immediately
 

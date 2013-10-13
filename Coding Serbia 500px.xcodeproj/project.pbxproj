@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		412D4DBD180A3375000A53E1 /* NSNumber+CDSHumanReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = 412D4DBC180A3375000A53E1 /* NSNumber+CDSHumanReadable.m */; };
 		412D4DC0180B0F8C000A53E1 /* UIImage+CDSThumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = 412D4DBF180B0F8C000A53E1 /* UIImage+CDSThumbnail.m */; };
+		412D4DC2180B1087000A53E1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 412D4DC1180B1087000A53E1 /* ImageIO.framework */; };
 		41C06B581809AB92001F2173 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C06B571809AB92001F2173 /* Foundation.framework */; };
 		41C06B5A1809AB92001F2173 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C06B591809AB92001F2173 /* CoreGraphics.framework */; };
 		41C06B5C1809AB92001F2173 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C06B5B1809AB92001F2173 /* UIKit.framework */; };
@@ -44,6 +45,7 @@
 		412D4DBC180A3375000A53E1 /* NSNumber+CDSHumanReadable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+CDSHumanReadable.m"; sourceTree = "<group>"; };
 		412D4DBE180B0F8C000A53E1 /* UIImage+CDSThumbnail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CDSThumbnail.h"; sourceTree = "<group>"; };
 		412D4DBF180B0F8C000A53E1 /* UIImage+CDSThumbnail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CDSThumbnail.m"; sourceTree = "<group>"; };
+		412D4DC1180B1087000A53E1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		41C06B541809AB92001F2173 /* Coding Serbia 500px.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coding Serbia 500px.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41C06B571809AB92001F2173 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		41C06B591809AB92001F2173 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -77,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				412D4DC2180B1087000A53E1 /* ImageIO.framework in Frameworks */,
 				41C06B5A1809AB92001F2173 /* CoreGraphics.framework in Frameworks */,
 				41C06B5C1809AB92001F2173 /* UIKit.framework in Frameworks */,
 				41C06B581809AB92001F2173 /* Foundation.framework in Frameworks */,
@@ -118,6 +121,7 @@
 		41C06B561809AB92001F2173 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				412D4DC1180B1087000A53E1 /* ImageIO.framework */,
 				41C06B571809AB92001F2173 /* Foundation.framework */,
 				41C06B591809AB92001F2173 /* CoreGraphics.framework */,
 				41C06B5B1809AB92001F2173 /* UIKit.framework */,

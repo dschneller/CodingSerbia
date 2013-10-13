@@ -8,6 +8,7 @@
 
 #import "CDSPictureModel.h"
 #import "UIImage+CDSThumbnail.h"
+#import <ImageIO/ImageIO.h>
 
 #define CACHE_SIZE_MB 1
 
@@ -20,6 +21,11 @@
     
     UIImage* _thumbnail;
     NSNumber* _filesize;
+    CGFloat _exposureTime;
+    NSString* _resolution;
+    NSDate* _shotDate;
+    
+    BOOL _didReadExif;
 }
 
 + (NSCache*) imageCache
@@ -48,6 +54,7 @@
     {
         UIImage* image = self.image;
         [self prepareThumbnailFor:image];
+        [self readExifData];
     }
 }
 
@@ -66,9 +73,32 @@
 
 }
 
+- (CGFloat)exposureTime
+{
+    if (!_didReadExif) { [self readExifData]; }
+    return _exposureTime;
+}
+
+- (NSString *)resolution
+{
+    if (!_didReadExif) { [self readExifData]; }
+    return _resolution;
+}
+
+- (NSDate *)shotDate
+{
+    if (!_didReadExif) { [self readExifData]; }
+    return _shotDate;
+}
+
 -(UIImage *)thumbnail
 {
-    [self prepareThumbnail];
+    __weak CDSPictureModel* weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        CDSPictureModel* strongSelf = weakSelf;
+        if (!strongSelf) { return; }
+        [strongSelf prepareThumbnail];;
+    });
     return _thumbnail;
 }
 
@@ -89,7 +119,7 @@
             [[CDSPictureModel imageCache] setObject:image
                                              forKey:strongSelf.filepath
                                                cost:[strongSelf.filesize unsignedIntegerValue]];
-            [self prepareThumbnailFor:image];
+            [strongSelf prepareThumbnailFor:image];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ImageRetrieved" object:strongSelf userInfo:@{@"img" : image}];
             });
@@ -112,6 +142,45 @@
         _filesize = fileAttributes[NSFileSize];
     }
     return _filesize;
+}
+
+- (void) readExifData
+{
+    if (_didReadExif) return;
+    
+    NSURL* url = [NSURL fileURLWithPath:self.filepath];
+    CGImageSourceRef source = CGImageSourceCreateWithURL((__bridge CFURLRef)url , NULL);
+    
+    CFDictionaryRef imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(source, 0, NULL);
+    
+    // Image Dimensions
+    // -----------------------------
+    CFNumberRef imageWidth = (CFNumberRef)CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyPixelWidth);
+    CFNumberRef imageHeight = (CFNumberRef)CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyPixelHeight);
+    int w = 0;
+    int h = 0;
+    CFNumberGetValue(imageWidth, kCFNumberIntType, &w);
+    CFNumberGetValue(imageHeight, kCFNumberIntType, &h);
+    _resolution = [NSString stringWithFormat:@"%dx%d", w, h];
+
+    
+    // EXIF DATA
+    // -----------------------------
+    CFDictionaryRef exif = (CFDictionaryRef)CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyExifDictionary);
+    
+    // Shot Date
+    NSString* shotDate = CFDictionaryGetValue(exif, kCGImagePropertyExifDateTimeOriginal);
+    NSDateFormatter* f = [[NSDateFormatter alloc] init];
+    [f setDateFormat:@"yyyy:mm:dd HH:MM:ss"];
+    _shotDate = [f dateFromString:shotDate];
+    
+    NSString* exposure = CFDictionaryGetValue(exif, kCGImagePropertyExifExposureTime);
+    _exposureTime = [exposure floatValue];
+    
+    CFRelease(imagePropertiesDictionary);
+    CFRelease(source);
+    
+    _didReadExif = YES;
 }
 
 @end

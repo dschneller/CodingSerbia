@@ -14,6 +14,9 @@
 @property (nonatomic, readonly) NSNumber* filesize;
 @property (nonatomic, readonly) UIImage* thumbnail;
 @property (nonatomic, readonly) UIImage* image;
+@property (nonatomic, readonly) CGFloat exposureTime;
+@property (nonatomic, readonly) NSString* resolution;
+@property (nonatomic, readonly) NSDate* shotDate;
 
 - (id)initWithPath:(NSString*)path;
 - (void)prepareThumbnail;
