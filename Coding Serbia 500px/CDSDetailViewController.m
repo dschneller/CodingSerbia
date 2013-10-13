@@ -9,9 +9,10 @@
 #import "CDSDetailViewController.h"
 #import "CDSPictureModel.h"
 
-@interface CDSDetailViewController ()
+@interface CDSDetailViewController() <UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
 
@@ -20,10 +21,16 @@
 
 #pragma mark - View Lifecycle
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    [self configureView];
+    [super viewWillAppear:animated];
+    [self initZoom];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self resetZoomScale];
+    [self initZoom];
 }
 
 #pragma mark - Managing the detail item
@@ -33,21 +40,49 @@
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
         
-        // Update the view.
         [self configureView];
+        [self initZoom];
     }
 }
+
+#pragma Panning and Zooming
 
 - (void)configureView
 {
-    // Update the user interface for the detail item.
-
     if (self.detailItem) {
         CDSPictureModel* pictureModel = self.detailItem;
+        UIImage* image = pictureModel.image;
         
         self.navigationItem.title = [pictureModel.filepath lastPathComponent];
-        self.imageView.image = pictureModel.image;
+        [self resetZoomScale];
+        self.imageView.image = image;
+        [self initZoom];
     }
 }
+
+- (void) initZoom {
+    float minZoom = MIN(self.view.bounds.size.width / self.imageView.image.size.width,
+                        self.view.bounds.size.height / self.imageView.image.size.height);
+    if (minZoom > 1) return;
+    self.scrollView.minimumZoomScale = minZoom;
+    self.scrollView.zoomScale = minZoom;
+}
+
+- (void) resetZoomScale
+{
+    self.scrollView.zoomScale = 1.0;
+    self.scrollView.minimumZoomScale = 1.0;
+    self.scrollView.maximumZoomScale = 1.0;
+    [self.view setNeedsLayout];
+    [self.view layoutIfNeeded];
+}
+
+#pragma mark - Scroll View Delegate Methods
+
+-(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.imageView;
+}
+
 
 @end

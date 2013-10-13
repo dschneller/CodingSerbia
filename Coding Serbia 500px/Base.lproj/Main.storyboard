@@ -74,30 +74,47 @@
             <objects>
                 <viewController title="Detail" id="Ah7-4n-0Wa" customClass="CDSDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0a8-1D-f0m"/>
-                        <viewControllerLayoutGuide type="bottom" id="KSl-gi-maf"/>
+                        <viewControllerLayoutGuide type="top" id="vbv-aa-LN8"/>
+                        <viewControllerLayoutGuide type="bottom" id="3uq-I3-fI7"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="MMQ-IT-qOo">
+                    <view key="view" contentMode="scaleToFill" id="1FJ-y5-EzE">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Gv-tE-7A1">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" minimumZoomScale="0.20000000298023224" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="Y9D-pz-X3w" userLabel="SCROLL">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2gr-IB-3uw" userLabel="IMG">
+                                        <rect key="frame" x="160" y="252" width="0.0" height="0.0"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="2gr-IB-3uw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Y9D-pz-X3w" secondAttribute="leading" id="Y7W-Ic-2fA"/>
+                                    <constraint firstItem="2gr-IB-3uw" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Y9D-pz-X3w" secondAttribute="bottom" id="bq3-y3-reR"/>
+                                    <constraint firstItem="2gr-IB-3uw" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Y9D-pz-X3w" secondAttribute="trailing" id="pYr-hl-i2T"/>
+                                    <constraint firstItem="2gr-IB-3uw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Y9D-pz-X3w" secondAttribute="top" id="qU9-1R-YDY"/>
+                                    <constraint firstAttribute="centerY" secondItem="2gr-IB-3uw" secondAttribute="centerY" priority="500" id="vwT-ha-hiI"/>
+                                    <constraint firstAttribute="centerX" secondItem="2gr-IB-3uw" secondAttribute="centerX" priority="500" id="yqR-Fh-CoJ"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="Ah7-4n-0Wa" id="kdO-jE-WdU"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="0a8-1D-f0m" firstAttribute="top" secondItem="1Gv-tE-7A1" secondAttribute="top" id="9rk-be-e31"/>
-                            <constraint firstItem="1Gv-tE-7A1" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leading" id="Io1-nY-I4w"/>
-                            <constraint firstItem="KSl-gi-maf" firstAttribute="top" secondItem="1Gv-tE-7A1" secondAttribute="bottom" id="nXY-6w-XxE"/>
-                            <constraint firstAttribute="centerX" secondItem="1Gv-tE-7A1" secondAttribute="centerX" id="wDb-Sq-rsg"/>
+                            <constraint firstItem="Y9D-pz-X3w" firstAttribute="bottom" secondItem="1FJ-y5-EzE" secondAttribute="bottom" id="BhF-yb-Re7"/>
+                            <constraint firstItem="Y9D-pz-X3w" firstAttribute="leading" secondItem="1FJ-y5-EzE" secondAttribute="leading" id="JU5-8j-3qR"/>
+                            <constraint firstItem="Y9D-pz-X3w" firstAttribute="top" secondItem="1FJ-y5-EzE" secondAttribute="top" id="lrD-ux-yVf"/>
+                            <constraint firstItem="Y9D-pz-X3w" firstAttribute="trailing" secondItem="1FJ-y5-EzE" secondAttribute="trailing" id="y4s-Ll-e27"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Photo Viewer" id="cra-N8-TIN"/>
                     <connections>
-                        <outlet property="imageView" destination="1Gv-tE-7A1" id="Hhn-Ee-d8j"/>
+                        <outlet property="imageView" destination="2gr-IB-3uw" id="R6b-MB-uvi"/>
+                        <outlet property="scrollView" destination="Y9D-pz-X3w" id="KGl-XZ-jyG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
