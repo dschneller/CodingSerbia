@@ -7,6 +7,7 @@
 //
 
 #import "CDSPictureModel.h"
+#import "UIImage+CDSThumbnail.h"
 
 #define CACHE_SIZE_MB 1
 
@@ -54,12 +55,7 @@
 {
     if (!image) return;
     [NSThread sleepForTimeInterval:1.0];
-    CGSize thumbnailSize = CGSizeMake(43, 43);
-    UIGraphicsBeginImageContextWithOptions(thumbnailSize, NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, thumbnailSize.width, thumbnailSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    _thumbnail = newImage;
+    _thumbnail = [image generateThumbail];
     
     __weak CDSPictureModel* weakModel = self;
     dispatch_async(dispatch_get_main_queue(), ^{
