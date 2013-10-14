@@ -99,8 +99,6 @@
     [self loadImages];
     [self.tableView reloadData];
     [r endRefreshing];
-
-
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -127,14 +125,6 @@
     return cell;
 }
 
-- (void) thumbnailDidUpdate:(NSNotification*)notification
-{
-    CDSPictureModel* model = notification.object;
-    NSUInteger index = [_objects indexOfObject:model];
-    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ThumbnailDidUpdateNotification" object:model];
-}
-
 #pragma mark - Table View Editing
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -152,6 +142,14 @@
     }
 }
 
+#pragma mark - Notifications
+- (void) thumbnailDidUpdate:(NSNotification*)notification
+{
+    CDSPictureModel* model = notification.object;
+    NSUInteger index = [_objects indexOfObject:model];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ThumbnailDidUpdateNotification" object:model];
+}
 
 #pragma mark - Segues
 
@@ -163,5 +161,6 @@
         [[segue destinationViewController] setDetailItem:object];
     }
 }
+
 
 @end
